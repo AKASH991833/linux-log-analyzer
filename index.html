@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Linux Log Analyzer - find failed SSH logins and top attacker IPs</title>
+<meta name="description" content="Paste auth.log, secure or syslog. Find failed SSH logins, top IPs, usernames tried, sudo activity and a timeline. Free, private, runs in your browser.">
+<meta name="theme-color" content="#0a0a12">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self'; manifest-src 'self'; worker-src 'self'; base-uri 'none'; form-action 'none'; object-src 'none'">
+<meta name="referrer" content="no-referrer">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="assets/icon-192.png">
+<link rel="stylesheet" href="base.css">
+<link rel="stylesheet" href="style.css">
+<script src="theme.js"></script>
+</head>
+<body>
+<header class="top"><div class="wrap"><a class="brand" href="./"><span class="logo">&gt;_</span><span>Log Analyzer</span></a><div class="hd-actions"><button class="iconbtn" id="themeBtn" type="button" aria-label="Switch dark or light mode">☀️ Light</button></div></div></header>
+<main class="wrap">
+ <section class="hero"><span class="badge">🔒 Private · Logs never leave your browser</span>
+  <h1>Linux log dalo, <em>attackers pakdo.</em></h1>
+  <p>Paste or drop <code>/var/log/auth.log</code>, <code>/var/log/secure</code> or journalctl output. See failed SSH logins, top IPs, usernames tried, sudo use and an hourly timeline.</p></section>
+ <section class="card inbox" id="drop">
+  <textarea id="log" rows="10" spellcheck="false" placeholder="Paste log lines here, or drop a file...&#10;Oct 20 10:44:50 web01 sshd[2211]: Failed password for invalid user admin from 203.0.113.9 port 51022 ssh2"></textarea>
+  <div class="row ctl">
+   <label class="btn ghost sm" for="file">📂 Open file</label><input type="file" id="file" class="sr" accept=".log,.txt,text/plain,*/*">
+   <div class="yr"><label for="year" class="muted small">Year (for logs without year)</label><input type="number" id="year" min="1990" max="2100"></div>
+   <div class="grow"></div>
+   <button class="btn ghost sm" id="sample" type="button">Try sample</button>
+   <button class="btn ghost sm" id="clear" type="button">Clear</button>
+   <button class="btn" id="go" type="button">🔍 Analyze</button>
+  </div>
+  <p class="muted small" id="info">Supports Debian/Ubuntu auth.log, RHEL/CentOS secure, journalctl and rsyslog ISO timestamps. Files up to about 25 MB.</p>
+ </section>
+ <section id="out" hidden>
+  <div class="stats" id="stats"></div>
+  <div id="alerts"></div>
+  <div class="card"><h3>Timeline (per hour)</h3><div class="legend"><span><i class="d bad"></i>Failed</span><span><i class="d ok"></i>Accepted</span></div><div id="chart" class="chart"></div></div>
+  <div class="two">
+   <div class="card"><h3>Top source IPs (failed logins)</h3><div class="tw"><table id="tIp"></table></div><div class="row"><button class="btn ghost sm" id="copyIps" type="button">Copy IP list</button><button class="btn ghost sm" id="copyBlock" type="button">Copy block commands</button></div><p class="muted small">Block commands are only text. Review each IP before you run anything.</p></div>
+   <div class="card"><h3>Usernames tried</h3><div class="tw"><table id="tUser"></table></div></div>
+  </div>
+  <div class="two">
+   <div class="card"><h3>Successful logins</h3><div class="tw"><table id="tOk"></table></div></div>
+   <div class="card"><h3>sudo commands</h3><div class="tw"><table id="tSudo"></table></div></div>
+  </div>
+  <div class="two">
+   <div class="card"><h3>Account changes</h3><div class="tw"><table id="tAcc"></table></div></div>
+   <div class="card"><h3>Services with errors</h3><div class="tw"><table id="tSvc"></table></div></div>
+  </div>
+  <div class="card"><h3>What to do next</h3><ul id="recs" class="recs"></ul></div>
+  <div class="card"><div class="ih"><h3>Events <span class="muted small" id="evc"></span></h3><div class="row"><input type="search" id="evq" placeholder="Filter (IP, user, text)" aria-label="Filter events"><select id="evt" aria-label="Event type"><option value="">All types</option></select><button class="btn ghost sm" id="csv" type="button">⬇ CSV</button></div></div><div class="tw tall"><table id="tEv"></table></div></div>
+ </section>
+ <section class="card tips"><h2>How it works</h2><ol class="muted"><li>Paste logs or open a file. Nothing is uploaded; parsing runs on your device.</li><li>It reads SSH, sudo, PAM and account lines, counts them, and flags IPs with many failures or a login that succeeded after failures.</li><li>Use the next-step list as a starting checklist, then confirm on the server.</li></ol>
+ <p class="muted small">Limits: lite analyzer for common OpenSSH, sudo and PAM message formats. Other services are only counted by error keywords. "Likely brute force" is a simple rule (10 or more failures, or 5 or more within 5 minutes) and can include false alarms such as a mistyped password. Always verify before blocking anyone. The sample log is made up and uses documentation IP ranges.</p></section>
+</main>
+<footer class="foot"><div class="wrap"><span>Everything runs in your browser. Your logs never leave your device.</span><span>Built by Akash Vishwakarma</span></div></footer>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script src="sample.js"></script><script src="analyzer.js"></script><script src="app.js"></script>
+</body></html>
