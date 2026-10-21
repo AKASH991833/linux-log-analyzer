@@ -16,3 +16,9 @@ table{width:100%;border-collapse:collapse;font-size:13px}th,td{text-align:left;p
 @media(max-width:820px){.two{grid-template-columns:1fr}.ih input{width:100%}}
 @media print{body::before,header.top,.inbox,.tips,.foot{display:none!important}body{background:#fff;color:#000}}
 .stat{transition:transform .18s,box-shadow .2s}.stat:hover{transform:translateY(-2px)}
+/* mobile overflow guards */
+html,body{overflow-x:clip}
+.inbox textarea{white-space:pre-wrap;overflow-wrap:anywhere}
+.alert{overflow-wrap:anywhere}.alert code{word-break:break-all}
+.chart svg{max-width:100%;height:auto}
+.stat b{overflow-wrap:anywhere}
