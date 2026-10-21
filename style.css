@@ -15,3 +15,4 @@ table{width:100%;border-collapse:collapse;font-size:13px}th,td{text-align:left;p
 .tips{margin-top:26px}.tips ol{padding-left:20px}.drag{outline:3px dashed var(--a1);outline-offset:-6px}
 @media(max-width:820px){.two{grid-template-columns:1fr}.ih input{width:100%}}
 @media print{body::before,header.top,.inbox,.tips,.foot{display:none!important}body{background:#fff;color:#000}}
+.stat{transition:transform .18s,box-shadow .2s}.stat:hover{transform:translateY(-2px)}

@@ -1,5 +1,8 @@
 # Linux Log Analyzer
 
+
+**Live:** https://akash991833.github.io/linux-log-analyzer/
+
 Paste or drop auth.log, secure or journalctl output. Find failed SSH logins, top attacker IPs, usernames tried, sudo activity, account changes and an hourly timeline. Free, private, in-browser.
 
 ## Screenshots
