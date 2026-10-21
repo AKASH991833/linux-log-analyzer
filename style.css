@@ -22,3 +22,7 @@ html,body{overflow-x:clip}
 .alert{overflow-wrap:anywhere}.alert code{word-break:break-all}
 .chart svg{max-width:100%;height:auto}
 .stat b{overflow-wrap:anywhere}
+#out{grid-template-columns:minmax(0,1fr)}
+.stats>*{min-width:0}
+.two{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}
+@media(max-width:820px){.two{grid-template-columns:minmax(0,1fr)}}
